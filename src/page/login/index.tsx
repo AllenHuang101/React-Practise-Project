@@ -34,7 +34,14 @@ function Login() {
           <Form form={form}>
             <Form.Item
               name="username"
-              rules={[{ required: true, message: "用戶名不能為空" }]}
+              rules={[
+                { required: true, message: "用戶名不能為空" },
+                // { min: 3, max: 5, message: "用戶名只能 3~5 位字符" },
+                {
+                  pattern: /^\w{4,8}$/,
+                  message: "用戶名只能 4~8 位數字字母字符",
+                },
+              ]}
             >
               <Input placeholder="請輸入您的用戶名" prefix={<UserOutlined />} />
             </Form.Item>
