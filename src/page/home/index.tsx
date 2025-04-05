@@ -17,7 +17,7 @@ const XuButton: FC<ButtonProps> = (props) => {
 
 function Home() {
   return (
-    <div>
+    <div className="home">
       我是home組件
       <Button type="primary">我是一個按鈕</Button>
       <XuButton>我是一個自定義按鈕</XuButton>

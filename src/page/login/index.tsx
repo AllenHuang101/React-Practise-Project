@@ -1,5 +1,12 @@
+import "./index.scss";
+
 function Login() {
-  return <div>我是登入組件</div>;
+  return (
+    <div className="login">
+      我是登入組件
+      <p className="aa">Hello</p>
+    </div>
+  );
 }
 
 export default Login;
