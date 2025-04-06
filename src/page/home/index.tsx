@@ -1,27 +1,43 @@
-import { Button } from "antd";
-import { FC } from "react";
+import { Layout } from "antd";
+import { useState } from "react";
+import MyBreadCrumb from "../../components/breadCrumb";
+import MyHeader from "../../components/header";
+import NavLeft from "../../components/navLeft";
 
-interface ButtonProps {
-  type?: string;
-  children: React.ReactNode;
-}
-
-const XuButton: FC<ButtonProps> = (props) => {
-  const cssStyle = {
-    padding: "10px 20px",
-    borderRadius: "10px",
-    backgroundColor: props.type === "primary" ? "blue" : "",
-  };
-  return <button style={cssStyle}>{props.children}</button>;
-};
+const { Header, Content, Footer, Sider } = Layout;
 
 function Home() {
+  const [collapsed, setCollapsed] = useState<boolean>(false);
+
   return (
-    <div className="home">
-      我是home組件
-      <Button type="primary">我是一個按鈕</Button>
-      <XuButton>我是一個自定義按鈕</XuButton>
-    </div>
+    <Layout style={{ minHeight: "100vh" }}>
+      <Sider
+        collapsible
+        collapsed={collapsed}
+        onCollapse={(value) => setCollapsed(value)}
+      >
+        <NavLeft />
+      </Sider>
+      <Layout>
+        <Header style={{ padding: 0 }}>
+          <MyHeader />
+        </Header>
+        <Content style={{ margin: "0 16px" }}>
+          <MyBreadCrumb />
+          <div
+            style={{
+              padding: 24,
+              minHeight: 360,
+            }}
+          >
+            Bill is a cat.
+          </div>
+        </Content>
+        <Footer style={{ textAlign: "center" }}>
+          Ant Design ©{new Date().getFullYear()} Created by Ant UED
+        </Footer>
+      </Layout>
+    </Layout>
   );
 }
 
