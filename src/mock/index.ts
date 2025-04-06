@@ -1,4 +1,7 @@
 import Mock from "mockjs";
+Mock.setup({
+  timeout: "200-600",
+});
 
 //登录接口
 Mock.mock("https://www.demo.com/login", "post", (options: any) => {

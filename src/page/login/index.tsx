@@ -8,26 +8,32 @@ import { useDispatch } from "react-redux";
 import { login } from "../../api/users";
 import { setToken } from "../../store/login/authSlice";
 
+import { useState } from "react";
+import { useNavigate } from "react-router-dom";
 import "./index.scss";
 
 function Login() {
   const [form] = Form.useForm();
+  const [loading, setLoading] = useState<boolean>(false);
   const dispatch = useDispatch();
+  const navigate = useNavigate();
 
   function handleLogin() {
     // console.log(form);
     form
       .validateFields()
       .then(async (res) => {
+        setLoading(true);
         // console.log("res:", res);
         const {
           data: { token },
         } = await login(res);
-
-        // console.log("token:", token);
+        setLoading(false);
         dispatch(setToken(token));
+        navigate("/", { replace: true });
       })
       .catch((err) => {
+        setLoading(false);
         console.log(err);
       });
   }
@@ -71,6 +77,7 @@ function Login() {
                 type="primary"
                 style={{ width: "100%" }}
                 onClick={handleLogin}
+                loading={loading}
               >
                 登入
               </Button>

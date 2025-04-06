@@ -4,6 +4,7 @@ import axios, {
   AxiosResponse,
   InternalAxiosRequestConfig,
 } from "axios";
+import { store } from "../../store";
 
 const http: AxiosInstance = axios.create({
   baseURL: "https://www.demo.com",
