@@ -5,7 +5,8 @@ import lgbg from "../../assets/lgbg.jpg";
 import logo from "../../assets/logo.png";
 
 import { useEffect } from "react";
-import http from "../../utils/http";
+import { login } from "../../api/users";
+
 import "./index.scss";
 
 function Login() {
@@ -24,20 +25,7 @@ function Login() {
   }
 
   useEffect(() => {
-    http({
-      method: "post",
-      url: "/login",
-      data: {
-        username: "赵铁柱",
-        password: "123456",
-      },
-    })
-      .then((res) => {
-        console.log("請求結果是", res);
-      })
-      .catch((err) => {
-        console.log("登入失敗", err);
-      });
+    login({ username: "赵铁柱", password: "123456" });
   }, []);
 
   return (
