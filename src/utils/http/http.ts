@@ -12,7 +12,13 @@ const http: AxiosInstance = axios.create({
 
 // 請求攔截器
 http.interceptors.request.use((config: InternalAxiosRequestConfig) => {
-  console.log("config", config.data);
+  const { token } = store.getState().authSlice;
+
+  if (token) {
+    //Authorization专门用来携带认证信息
+    //Bearer表示的是一种认证类型，表示后面携带的是一个令牌
+    config.headers["Authorization"] = `Bearer ${token}`;
+  }
   return config;
 });
 
