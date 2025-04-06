@@ -4,29 +4,33 @@ import bg from "../../assets/bg.jpg";
 import lgbg from "../../assets/lgbg.jpg";
 import logo from "../../assets/logo.png";
 
-import { useEffect } from "react";
+import { useDispatch } from "react-redux";
 import { login } from "../../api/users";
+import { setToken } from "../../store/login/authSlice";
 
 import "./index.scss";
 
 function Login() {
   const [form] = Form.useForm();
+  const dispatch = useDispatch();
 
   function handleLogin() {
     // console.log(form);
     form
       .validateFields()
-      .then((res) => {
-        console.log("res:", res);
+      .then(async (res) => {
+        // console.log("res:", res);
+        const {
+          data: { token },
+        } = await login(res);
+
+        // console.log("token:", token);
+        dispatch(setToken(token));
       })
       .catch((err) => {
         console.log(err);
       });
   }
-
-  useEffect(() => {
-    login({ username: "赵铁柱", password: "123456" });
-  }, []);
 
   return (
     <div className="login" style={{ backgroundImage: `url(${bg})` }}>
