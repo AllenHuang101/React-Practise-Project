@@ -1,4 +1,4 @@
-import { Layout } from "antd";
+import { Layout, theme } from "antd";
 import { useState } from "react";
 import MyBreadCrumb from "../../components/breadCrumb";
 import MyHeader from "../../components/header";
@@ -8,6 +8,9 @@ const { Header, Content, Footer, Sider } = Layout;
 
 function Home() {
   const [collapsed, setCollapsed] = useState<boolean>(false);
+  const {
+    token: { colorBgContainer, borderRadiusLG },
+  } = theme.useToken();
 
   return (
     <Layout style={{ minHeight: "100vh" }}>
@@ -19,7 +22,7 @@ function Home() {
         <NavLeft />
       </Sider>
       <Layout>
-        <Header style={{ padding: 0 }}>
+        <Header style={{ padding: 0, background: colorBgContainer }}>
           <MyHeader />
         </Header>
         <Content style={{ margin: "0 16px" }}>
