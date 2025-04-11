@@ -26,10 +26,11 @@ function Login() {
         setLoading(true);
         // console.log("res:", res);
         const {
-          data: { token },
+          data: { token, username },
         } = await login(res);
         setLoading(false);
         dispatch(setToken(token));
+        sessionStorage.setItem("username", username);
         navigate("/", { replace: true });
       })
       .catch((err) => {

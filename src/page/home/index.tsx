@@ -22,7 +22,13 @@ function Home() {
         <NavLeft />
       </Sider>
       <Layout>
-        <Header style={{ padding: 0, background: colorBgContainer }}>
+        <Header
+          style={{
+            paddingRight: "20px",
+            background: colorBgContainer,
+            textAlign: "right",
+          }}
+        >
           <MyHeader />
         </Header>
         <Content style={{ margin: "0 16px" }}>
