@@ -1,7 +1,7 @@
 import { Menu } from "antd";
 import { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
-import { useNavigate } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
 import logo from "../../assets/logo.png";
 import icons from "./iconList";
 import "./index.scss";
@@ -58,7 +58,9 @@ function NavLeft() {
   const { menuList } = useSelector((state: any) => state.authSlice);
   const [menuData, setMenuData] = useState<MenuItem[]>([]);
   const navigate = useNavigate();
+  const location = useLocation();
 
+  // console.log("location", location.pathname);
   useEffect(() => {
     configMenu();
   }, [menuList]);
@@ -93,6 +95,7 @@ function NavLeft() {
         theme="dark"
         items={menuData}
         onClick={handleClick}
+        selectedKeys={[location.pathname]}
       />
     </div>
   );
