@@ -1,7 +1,9 @@
 import { Menu } from "antd";
 import { useEffect, useState } from "react";
+import { useDispatch } from "react-redux";
 import { getMenu } from "../../api/users";
 import logo from "../../assets/logo.png";
+import { setMenu } from "../../store/login/authSlice";
 import icons from "./iconList";
 import "./index.scss";
 
@@ -54,6 +56,7 @@ interface MenuItemFromData {
 // ];
 
 function NavLeft() {
+  const dispatch = useDispatch();
   const [menuData, setMenuData] = useState<MenuItem[]>([]);
 
   useEffect(() => {
@@ -61,6 +64,7 @@ function NavLeft() {
   }, []);
   async function configMenu() {
     const { data } = await getMenu();
+    dispatch(setMenu(data));
     const mappedMenuItems: MenuItem[] = mapMenuItems(data);
     setMenuData(mappedMenuItems);
   }
