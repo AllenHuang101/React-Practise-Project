@@ -4,3 +4,11 @@ li{list-style: none;}
 .mb{margin-bottom: 15bx;}
 .ml{margin-left: 15bx;}
 .mr{margin-right: 15bx;}
+.fl{float: left;}
+.fr{float: right;}
+.clearfix:after{
+    content: "";
+    height: 0;
+    display: block;
+    clear: both; 
+}
