@@ -1,9 +1,8 @@
 import { Menu } from "antd";
 import { useEffect, useState } from "react";
-import { useDispatch } from "react-redux";
-import { getMenu } from "../../api/users";
+import { useSelector } from "react-redux";
+import { useNavigate } from "react-router-dom";
 import logo from "../../assets/logo.png";
-import { setMenu } from "../../store/login/authSlice";
 import icons from "./iconList";
 import "./index.scss";
 
@@ -56,16 +55,15 @@ interface MenuItemFromData {
 // ];
 
 function NavLeft() {
-  const dispatch = useDispatch();
+  const { menuList } = useSelector((state: any) => state.authSlice);
   const [menuData, setMenuData] = useState<MenuItem[]>([]);
+  const navigate = useNavigate();
 
   useEffect(() => {
     configMenu();
-  }, []);
+  }, [menuList]);
   async function configMenu() {
-    const { data } = await getMenu();
-    dispatch(setMenu(data));
-    const mappedMenuItems: MenuItem[] = mapMenuItems(data);
+    const mappedMenuItems: MenuItem[] = mapMenuItems(menuList);
     setMenuData(mappedMenuItems);
   }
 
@@ -79,6 +77,10 @@ function NavLeft() {
     }));
   }
 
+  function handleClick({ key }: { key: string }) {
+    navigate(key);
+  }
+
   return (
     <div className="navleft">
       <div className="logo">
@@ -90,6 +92,7 @@ function NavLeft() {
         mode="inline"
         theme="dark"
         items={menuData}
+        onClick={handleClick}
       />
     </div>
   );

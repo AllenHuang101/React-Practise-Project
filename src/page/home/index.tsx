@@ -1,5 +1,6 @@
 import { Layout, theme } from "antd";
 import { useState } from "react";
+import { Outlet } from "react-router-dom";
 import MyBreadCrumb from "../../components/breadCrumb";
 import MyHeader from "../../components/header";
 import NavLeft from "../../components/navLeft";
@@ -33,14 +34,7 @@ function Home() {
         </Header>
         <Content style={{ margin: "0 16px" }}>
           <MyBreadCrumb />
-          <div
-            style={{
-              padding: 24,
-              minHeight: 360,
-            }}
-          >
-            Bill is a cat.
-          </div>
+          <Outlet />
         </Content>
         <Footer style={{ textAlign: "center" }}>
           Ant Design ©{new Date().getFullYear()} Created by Ant UED
