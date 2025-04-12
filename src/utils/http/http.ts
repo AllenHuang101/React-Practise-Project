@@ -25,7 +25,6 @@ http.interceptors.request.use((config: InternalAxiosRequestConfig) => {
 
 // 響應攔截器
 http.interceptors.response.use((response: AxiosResponse) => {
-  console.log("response", response);
   const res = response.data;
   if (res.code != 200) {
     message.error(res.code + ":" + res.message);

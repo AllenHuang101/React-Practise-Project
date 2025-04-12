@@ -5,9 +5,73 @@ import {
   SnippetsOutlined,
 } from "@ant-design/icons";
 import { Card, Col, Row } from "antd";
+import ReactEChart from "echarts-for-react";
+import { useEffect, useState } from "react";
+import { getEnergyData } from "../../api/dashboard";
+
 import "./index.scss";
 
+
+
 function Dashboard() {
+  const initalOption = {
+    title: {
+      text: '当日能源消耗'
+    },
+    tooltip: {
+      trigger: 'axis'
+    },
+    legend: {
+      data: []
+    },
+    grid: {
+      left: '%',
+      right: '4%',
+      bottom: '3%',
+      containLabel: true
+    },
+    toolbox: {
+      feature: {
+        saveAsImage: {}
+      }
+    },
+    xAxis: {
+      type: 'category',
+      boundaryGap: false,
+      data: ['0：00', '4：00', '8：00', '12：00', '16：00', '20：00', '24：00']
+    },
+    yAxis: {
+      type: 'value'
+    },
+    series: []
+  };
+
+  const [data, setData] = useState(initalOption);
+
+
+  useEffect(() => {
+    const loadData = async () => {
+      const { data: apiData } = await getEnergyData();
+      const dataList = apiData.map((item: any) => ({
+        name: item.name,
+        data: item.data,
+        type: "line",
+        stack: "Total",
+      }));
+
+      const updatedOption = {
+        ...data,
+        legend: {
+          data: dataList.map((item: any) => item.name)
+        },
+        series: dataList,
+      };
+
+      setData(updatedOption);
+    }
+
+    loadData();
+  }, []);
   return (
     <div className="dashboard">
       <Row gutter={16}>
@@ -55,6 +119,14 @@ function Dashboard() {
             </div>
           </Card>
         </Col>
+      </Row>
+      <Row gutter={16} className="mt">
+        <Col span={12}>
+          <Card title="能源消耗情况">
+            <ReactEChart option={data}></ReactEChart>
+          </Card>
+        </Col>
+        <Col span={12}></Col>
       </Row>
     </div>
   );

@@ -39,7 +39,7 @@ function App() {
       </div>
     );
   } else {
-    console.log("routerss", routerss);
+    // console.log("routerss", routerss);
     return <div>Loading...</div>;
   }
 }
