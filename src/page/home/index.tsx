@@ -32,7 +32,7 @@ function Home() {
         >
           <MyHeader />
         </Header>
-        <Content style={{ margin: "0 16px" }}>
+        <Content style={{ margin: "0 16px", height: "90vh", overflowY: "auto", overflowX: "hidden" }}>
           <MyBreadCrumb />
           <Outlet />
         </Content>

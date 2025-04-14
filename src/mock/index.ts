@@ -411,3 +411,25 @@ Mock.mock("https://www.demo.com/userList","post",(options:any)=>{
       })
   }
 })
+
+//删除企业
+Mock.mock('https://www.demo.com/deleteUser','post',(options:any)=>{
+  const {id}=JSON.parse(options.body);
+  console.log("删除企业",id);
+  return {
+    code: 200,
+    message: "成功",
+    data:"操作成功"
+  }
+})
+
+//批量删除企业
+Mock.mock('https://www.demo.com/batchDeleteUser','post',(options:any)=>{
+  const {ids}=JSON.parse(options.body);
+  console.log("ids",ids)
+  return {
+    code: 200,
+    message: "成功",
+    data:"操作成功"
+  }
+})
