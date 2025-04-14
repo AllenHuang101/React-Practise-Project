@@ -4,15 +4,81 @@ import {
   RadarChartOutlined,
   SnippetsOutlined,
 } from "@ant-design/icons";
-import { Card, Col, Row } from "antd";
-import ReactEChart from "echarts-for-react";
+import { Card, Col, Progress, Row, Statistic, Tag, Timeline } from "antd";
+import ReactECharts from "echarts-for-react";
 import { useEffect, useState } from "react";
 import { getEnergyData } from "../../api/dashboard";
-
 import "./index.scss";
 
-
-
+const option2 = {
+  title: {
+    text: '企业资质情况(家)'
+  },
+  tooltip: {
+    trigger: 'axis',
+    axisPointer: {
+      type: 'shadow'
+    }
+  },
+  legend: {},
+  grid: {
+    left: '3%',
+    right: '4%',
+    bottom: '3%',
+    containLabel: true
+  },
+  xAxis: {
+    type: 'category',
+    boundaryGap: [0, 0.01],
+    data: ['2014', '2016', '2018', '2020', '2022', "2024"]
+  },
+  yAxis: {
+    type: 'value',
+  },
+  series: [
+    {
+      name: '科技企业',
+      type: 'bar',
+      data: [40, 220, 378, 658, 1122, 1200]
+    },
+    {
+      name: '高新企业',
+      type: 'bar',
+      data: [20, 39, 443, 490, 559, 762]
+    },
+    {
+      name: '国营企业',
+      type: 'bar',
+      data: [78, 167, 229, 330, 380, 420]
+    }
+  ]
+};
+const option3 = {
+  legend: {
+    top: '10px'
+  },
+  series: [
+    {
+      name: 'Nightingale Chart',
+      type: 'pie',
+      radius: [30, 100],
+      center: ['50%', '50%'],
+      roseType: 'area',
+      itemStyle: {
+        borderRadius: 8
+      },
+      data: [
+        { value: 40, name: '在营' },
+        { value: 38, name: '已租' },
+        { value: 32, name: '出租' },
+        { value: 30, name: '续签' },
+        { value: 28, name: '新签' },
+        { value: 26, name: '待租' },
+        { value: 22, name: '退租' },
+      ]
+    }
+  ]
+};
 function Dashboard() {
   const initalOption = {
     title: {
@@ -47,7 +113,6 @@ function Dashboard() {
   };
 
   const [data, setData] = useState(initalOption);
-
 
   useEffect(() => {
     const loadData = async () => {
@@ -123,10 +188,57 @@ function Dashboard() {
       <Row gutter={16} className="mt">
         <Col span={12}>
           <Card title="能源消耗情况">
-            <ReactEChart option={data}></ReactEChart>
+            <ReactECharts option={data}></ReactECharts>
           </Card>
         </Col>
-        <Col span={12}></Col>
+        <Col span={12}>
+          <Card title="企业资质情况">
+            <ReactECharts option={option2}></ReactECharts>
+          </Card>
+        </Col>
+      </Row>
+      <Row gutter={16} className="mt">
+        <Col span={12}>
+          <Card title="租赁情况">
+            <ReactECharts option={option3}></ReactECharts>
+          </Card>
+        </Col>
+        <Col span={6}>
+          <Card title="充电桩空闲统计">
+            <div className="wrap">
+              <Progress type="circle" percent={75} />
+              <Statistic title="总充电桩数" value={75} suffix="/ 100" className="mt" />
+            </div>
+          </Card>
+        </Col>
+        <Col span={6}>
+          <Card title="实时车辆信息" style={{ height: "406px" }}>
+            <Timeline items={[
+              {
+                children: <><Tag color="green">进场</Tag>08:24车辆 京A66666</>
+              },
+              {
+                children: <><Tag color="red">出场</Tag>09:15 车辆 京A66666  </>,
+                color: 'red',
+              },
+              {
+                children: <><Tag color="green">进场</Tag>09:22 车辆 京A23456  </>,
+              },
+              {
+                children: <><Tag color="red">出场</Tag>10:43 车辆 京A18763  </>,
+                color: 'red',
+              },
+              {
+                children: <><Tag color="green">进场</Tag>13:38 车辆 京A88888  </>,
+              },
+              {
+                children: <><Tag color="green">进场</Tag>14:46 车辆 京A23456  </>,
+
+              },
+            ]} />
+
+          </Card>
+        </Col>
       </Row>
     </div>
   );
